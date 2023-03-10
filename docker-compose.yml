@@ -1,0 +1,17 @@
+version: "3.7"
+
+services:
+  db:
+    container_name: to-done-db
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
