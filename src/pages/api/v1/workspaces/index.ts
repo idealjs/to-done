@@ -55,9 +55,9 @@ const workspacesHandler = async (req: NextApiRequest, res: NextApiResponse) => {
               id: token.sub,
             },
             data: {
+              lastActiveWorkspaceId: workspace.id,
               profiles: {
                 create: {
-                  lastActiveWorkspaceId: workspace.id,
                   workspaces: {
                     connect: {
                       id: workspace.id,
@@ -78,7 +78,7 @@ const workspacesHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
         res.status(200).json(transactionRes);
       } catch (error) {
-        console.log("test test", error);
+        console.error(error);
       }
 
       break;

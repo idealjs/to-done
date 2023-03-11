@@ -48,6 +48,8 @@ model User {
     accounts      Account[]
     sessions      Session[]
 
+    lastActiveWorkspaceId String?
+
     profiles        Profile[]
     ownedWorkspaces Workspace[]
 }
@@ -64,8 +66,6 @@ model Profile {
     id     String @id @default(cuid())
     user   User   @relation(fields: [userId], references: [id])
     userId String
-
-    lastActiveWorkspaceId String
 
     tags        PermissionTag[]
     workspaces  Workspace       @relation(fields: [workspaceId], references: [id])

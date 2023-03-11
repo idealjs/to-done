@@ -2,10 +2,12 @@
   "name": "to-done",
   "packageManager": "yarn@3.4.1",
   "scripts": {
-    "dev": "next dev",
+    "dev": "concurrently --raw 'next dev' 'yarn type-check:watch'",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "type-check": "tsc --noEmit --incremental",
+    "type-check:watch": "yarn type-check --watch"
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.5",
@@ -31,6 +33,7 @@
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
     "autoprefixer": "^10.4.14",
+    "concurrently": "^7.6.0",
     "eslint": "8.35.0",
     "eslint-config-next": "13.2.4",
     "eslint-plugin-simple-import-sort": "^10.0.0",

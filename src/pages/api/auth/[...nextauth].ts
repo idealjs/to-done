@@ -63,26 +63,25 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   callbacks: {
-    jwt: ({ token, user }) => {
-      if (user) {
-        return {
-          ...token,
-          externalJwt: jwt.sign(
-            {
-              sub: token.sub,
-              email: token.email,
-            },
-            process.env.EXTERNAL_SECRET ?? "",
-            { expiresIn: "30d" }
-          ),
-        };
+    session: async ({ session, token }) => {
+      if (process.env.NEXT_PUBLIC_NODE_ENV !== "prod") {
+        const user = await prisma.user.findUnique({
+          where: {
+            id: token.sub,
+          },
+        });
+
+        if (user == null) {
+          throw new Error("User not found");
+        }
       }
-      return token;
-    },
-    session: ({ session, token }) => {
+
       return {
         ...session,
-        externalJwt: token.externalJwt,
+        user: {
+          ...session.user,
+          id: token.sub,
+        },
       };
     },
   },

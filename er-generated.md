@@ -29,6 +29,7 @@ erDiagram
     String email  "nullable"
     DateTime emailVerified  "nullable"
     String image  "nullable"
+    String lastActiveWorkspaceId  "nullable"
     }
   
 
@@ -41,7 +42,6 @@ erDiagram
 
   Profile {
     String id PK 
-    String lastActiveWorkspaceId  
     }
   
 
