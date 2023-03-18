@@ -2,7 +2,7 @@
   "Props Interface": {
     "scope": "typescriptreact",
     "prefix": "ipp",
-    "body": ["interface IProps {", "", "}"],
+    "body": ["interface IProps extends IClassNameProps {", "", "}"],
     "description": "props interface"
   }
 }
