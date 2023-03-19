@@ -1314,6 +1314,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@heroicons/react@npm:^2.0.16":
+  version: 2.0.16
+  resolution: "@heroicons/react@npm:2.0.16"
+  peerDependencies:
+    react: ">= 16"
+  checksum: 1e51bfec722bfd68f27fd4f37a024141938eb4b0058c3eab073a6d1aa08cf4f6deb1e8533ca85473cb16be1d1b528e2d57b8617f8b967e66292bf243daec5dd0
+  languageName: node
+  linkType: hard
+
 "@humanwhocodes/config-array@npm:^0.11.8":
   version: 0.11.8
   resolution: "@humanwhocodes/config-array@npm:0.11.8"
@@ -5919,6 +5928,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"luxon@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "luxon@npm:3.3.0"
+  checksum: 50cf17a0dc155c3dcacbeae8c0b7e80db425e0ba97b9cbdf12a7fc142d841ff1ab1560919f033af46240ed44e2f70c49f76e3422524c7fc8bb8d81ca47c66187
+  languageName: node
+  linkType: hard
+
 "magic-string@npm:^0.25.0, magic-string@npm:^0.25.7":
   version: 0.25.9
   resolution: "magic-string@npm:0.25.9"
@@ -8521,6 +8537,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "to-done@workspace:."
   dependencies:
+    "@heroicons/react": ^2.0.16
     "@mermaid-js/mermaid-cli": ^10.0.2
     "@milkdown/core": ^7.1.0
     "@milkdown/ctx": ^7.1.0
@@ -8544,6 +8561,7 @@ __metadata:
     eslint-plugin-simple-import-sort: ^10.0.0
     i18next: ^22.4.11
     jsonwebtoken: ^9.0.0
+    luxon: ^3.3.0
     next: 13.2.4
     next-auth: ^4.20.1
     next-i18next: ^13.2.2

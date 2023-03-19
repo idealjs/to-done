@@ -1,5 +1,3 @@
-import { CheckCircleIcon } from "@heroicons/react/24/outline";
-
 import List from "../../components/List";
 import ListItem from "../../components/List/ListItem";
 
