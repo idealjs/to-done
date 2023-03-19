@@ -10,7 +10,7 @@ interface IProps extends IClassNameProps {
 const Search = (props: PropsWithChildren<IProps>) => {
   const { children, className, searchId } = props;
   return (
-    <div className={clsx("w-full max-w-sm flex", className)}>
+    <div className={clsx("w-80 max-w-xs flex mr-8", className)}>
       <div className="searchbox relative mx-3 w-full">
         <svg
           className="pointer-events-none absolute z-10 my-3 ml-2 stroke-current opacity-60 text-base-content"
