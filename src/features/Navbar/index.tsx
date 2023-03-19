@@ -3,7 +3,7 @@ import Search from "../../components/Search";
 const Navbar = () => {
   return (
     <nav className="navbar w-full">
-      <div className="flex flex-1 md:gap-1 lg:gap-2">
+      <div className="flex-1 md:gap-1 lg:gap-2">
         <span className="tooltip tooltip-bottom before:text-xs" data-tip="Menu">
           <label
             htmlFor="workspace-drawer"
@@ -26,7 +26,11 @@ const Navbar = () => {
             </svg>
           </label>
         </span>
-        <Search searchId="globalSearchId" className="hidden lg:block" />
+        <Search searchId="globalSearchId" className="hidden md:block" />
+        <input
+          type="date"
+          className="input w-full max-w-xs pl-4 pr-3 py-2 border-0 input-md h-10"
+        />
       </div>
     </nav>
   );
