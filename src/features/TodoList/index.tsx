@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { useSnapshot } from "valtio";
 
 import DraggableList from "../DraggableList";
-import { listData } from "../listData";
+import { categorizedListData } from "../listData";
 
 interface IProps {
   id?: string;
@@ -10,13 +10,13 @@ interface IProps {
 
 const TodoList = (props: IProps) => {
   const { id = "todo" } = props;
-  const items = useSnapshot(listData.todo);
+  const items = useSnapshot(categorizedListData).todo;
   return (
     <DraggableList
       id={id}
       items={items}
       listProps={{
-        className: clsx("w-full sm:w-full md:w-full", "col-span-3"),
+        className: clsx("col-span-5 w-full", "lg:col-span-3"),
       }}
     />
   );

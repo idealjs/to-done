@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { useSnapshot } from "valtio";
 
 import DraggableList from "../DraggableList";
-import { listData } from "../listData";
+import { categorizedListData } from "../listData";
 
 interface IProps {
   id?: string;
@@ -10,7 +10,7 @@ interface IProps {
 
 const DoneList = (props: IProps) => {
   const { id = "done" } = props;
-  const items = useSnapshot(listData.done);
+  const items = useSnapshot(categorizedListData).done;
   return (
     <DraggableList
       id={id}

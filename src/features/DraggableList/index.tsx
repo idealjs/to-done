@@ -3,19 +3,15 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { useCallback } from "react";
+import { Suspense, useCallback } from "react";
 
 import List from "../../components/List";
-import { findContainer, listData } from "../listData";
+import { IItem, listData } from "../listData";
 import DraggableItem from "./DraggableItem";
 
 interface IProps {
   id: string;
-  items: {
-    id: string;
-    content: string;
-    title: string;
-  }[];
+  items: IItem[];
   listProps?: {
     className: string;
   };
@@ -38,20 +34,12 @@ const DraggableList = (props: IProps) => {
     if (overId == null) {
       return;
     }
-    const activeContainer = findContainer(activeId);
-    const overContainer = findContainer(overId);
 
-    if (activeContainer == null || overContainer == null) {
-      return null;
-    }
+    const activeIndex = listData.items.findIndex((v) => v.id === activeId);
+    const overIndex = listData.items.findIndex((v) => v.id === overId);
 
-    const activeIndex = listData[activeContainer].findIndex(
-      (v) => v.id === activeId
-    );
-    const overIndex = listData[overContainer].findIndex((v) => v.id === overId);
-
-    const activeEl = listData[activeContainer].splice(activeIndex, 1);
-    listData[overContainer].splice(overIndex, 0, ...activeEl);
+    const activeEl = listData.items.splice(activeIndex, 1);
+    listData.items.splice(overIndex, 0, ...activeEl);
   }, []);
 
   return (
