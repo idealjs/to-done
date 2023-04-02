@@ -3,9 +3,10 @@ import { getServerSession } from "next-auth/next";
 import { signOut } from "next-auth/react";
 
 import Logo from "../../components/Logo";
-import Content from "../../features/Content";
 import CreateItem from "../../features/CreateItem";
+import DoneList from "../../features/DoneList";
 import Navbar from "../../features/Navbar";
+import TodoList from "../../features/TodoList";
 import prisma from "../../lib/prisma";
 import { authOptions } from "../api/auth/[...nextauth]";
 
@@ -23,8 +24,11 @@ const Workspace = (props: IProps) => {
           <Navbar />
         </div>
         <div className="px-5">
-          <CreateItem className="z-10 sticky top-16" />
-          <Content />
+          <CreateItem />
+          <div className="grid grid-cols-5">
+            <TodoList />
+            <DoneList />
+          </div>
         </div>
       </div>
       <div className="drawer-side">

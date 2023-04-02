@@ -1,13 +1,7 @@
-import clsx from "clsx";
-
-import { IClassNameProps } from "../../type";
-
-interface IProps extends IClassNameProps {}
-
-const CreateItem = (props: IProps) => {
-  const { className } = props;
-
-  return <div className={clsx("btn btn-info shadow-md", className)}>Create Item</div>;
+const CreateItem = () => {
+  return (
+    <div className="btn btn-info shadow-md z-10 sticky top-16">Create Item</div>
+  );
 };
 
 export default CreateItem;
