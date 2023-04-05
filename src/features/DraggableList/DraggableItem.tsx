@@ -51,7 +51,7 @@ const DraggableItem = (props: PropsWithChildren<IProps>) => {
   return (
     <ListItem
       ref={setNodeRef}
-      className={"flex-row bg-base-200 my-2"}
+      className={"flex-row bg-base-200 my-2 mx-1"}
       style={style}
     >
       <label className="btn btn-ghost btn-square mt-1 swap swap-flip text-xl">

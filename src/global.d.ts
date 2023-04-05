@@ -22,6 +22,8 @@ declare global {
   namespace NodeJS {
     interface ProcessEnv {
       NEXT_PUBLIC_NODE_ENV: string | undefined;
+      CLIENT_ID: string;
+      CLIENT_SECRET: string;
     }
   }
   interface IPropsWithClassName {

@@ -1,8 +1,8 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import jwt from "jsonwebtoken";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import { Provider } from "next-auth/providers";
 import EmailProvider from "next-auth/providers/email";
+import GithubProvider from "next-auth/providers/github";
 
 import prisma from "../../../lib/prisma";
 
@@ -24,24 +24,11 @@ const providers: Provider[] = [
             console.debug("[debug]:mock sendVerificationRequest", params);
           },
   }),
-  {
-    id: "wechat",
-    name: "wechat",
-    type: "oauth",
-    wellKnown:
-      "https://open.weixin.qq.com/connect/qrconnect?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect",
-    authorization: { params: { scope: "openid email profile" } },
-    idToken: true,
-    checks: ["pkce", "state"],
-    profile(profile) {
-      return {
-        id: profile.sub,
-        name: profile.name,
-        email: profile.email,
-        image: profile.picture,
-      };
-    },
-  },
+  GithubProvider({
+    clientId: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    allowDangerousEmailAccountLinking: true,
+  }),
 ];
 
 const adapter = PrismaAdapter(prisma);

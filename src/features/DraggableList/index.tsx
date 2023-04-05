@@ -3,7 +3,8 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { Suspense, useCallback } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useCallback } from "react";
 
 import List from "../../components/List";
 import { IItem, listData } from "../listData";
@@ -54,9 +55,27 @@ const DraggableList = (props: IProps) => {
         strategy={verticalListSortingStrategy}
       >
         <List {...listProps}>
-          {items.map((item) => {
-            return <DraggableItem key={item.id} item={item} />;
-          })}
+          <AnimatePresence>
+            {items.map((item) => {
+              return (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{
+                    opacity: 1,
+                    height: "auto",
+                  }}
+                  exit={{
+                    opacity: 0,
+                    height: 0,
+                    marginBottom: -8,
+                  }}
+                >
+                  <DraggableItem item={item} />
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
         </List>
       </SortableContext>
     </DndContext>

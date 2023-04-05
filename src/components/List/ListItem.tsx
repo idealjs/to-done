@@ -13,9 +13,7 @@ const ListItem = forwardRef<HTMLLIElement, PropsWithChildren<IProps>>(
 
     return (
       <li ref={ref} style={style}>
-        <div className={clsx("card p-2 m-1 shadow-md", className)}>
-          {children}
-        </div>
+        <div className={clsx("card p-2 shadow-md", className)}>{children}</div>
       </li>
     );
   }
