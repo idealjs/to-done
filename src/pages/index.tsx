@@ -1,4 +1,4 @@
-import type { Profile, User } from "@prisma/client";
+import type { Profile, User, Workspace } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { GetServerSideProps } from "next/types";
 import { getServerSession } from "next-auth/next";
@@ -9,12 +9,12 @@ import prisma from "../lib/prisma";
 import { authOptions } from "./api/auth/[...nextauth]";
 
 interface IProps {
-  profiles: Profile[];
+  profileWorkspaces: Workspace[];
   user: Pick<User, "id" | "lastActiveWorkspaceId"> | null;
 }
 
 const Home = (props: IProps) => {
-  const { profiles, user } = props;
+  const { profileWorkspaces, user } = props;
   const router = useRouter();
 
   useEffect(() => {
@@ -24,13 +24,13 @@ const Home = (props: IProps) => {
     if (user?.lastActiveWorkspaceId != null) {
       router.push(`/workspace/${user?.lastActiveWorkspaceId}`);
     }
-    if (user?.lastActiveWorkspaceId == null && profiles.length != 0) {
-      router.push(`/workspace/${profiles[0].workspaceId}`);
+    if (user?.lastActiveWorkspaceId == null && profileWorkspaces.length !== 0) {
+      router.push(`/workspace/${profileWorkspaces[0].id}`);
     }
-    if (user?.lastActiveWorkspaceId == null && profiles.length == 0) {
+    if (user?.lastActiveWorkspaceId == null && profileWorkspaces.length == 0) {
       router.push("/onboarding");
     }
-  }, [profiles, router, user, user?.lastActiveWorkspaceId]);
+  }, [profileWorkspaces, router, user]);
 
   if (user != null) {
     return null;
@@ -69,6 +69,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
           where: {
             userId: session?.user?.id,
           },
+          include: {
+            workspaces: true,
+          },
         })
       : [];
 
@@ -81,6 +84,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
         })
       : null;
 
+  const profileWorkspaces = profiles.flatMap((profile) => profile.workspaces);
+
   return {
     props: {
       session,
@@ -91,7 +96,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
               lastActiveWorkspaceId: user?.lastActiveWorkspaceId,
             }
           : null,
-      profiles,
+      profileWorkspaces,
     },
   };
 };

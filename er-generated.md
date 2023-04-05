@@ -56,22 +56,9 @@ erDiagram
     String name  
     }
   
-
-  ToDoneItem {
-    String id PK 
-    }
-  
-
-  Label {
-    String id PK 
-    }
-  
     Account o{--|| User : "user"
     Session o{--|| User : "user"
     Profile o{--|| User : "user"
-    Profile o{--|| Workspace : "workspaces"
     PermissionTag o{--|o Workspace : "workspace"
     Workspace o{--|| User : "owner"
-    ToDoneItem o{--|| Workspace : "workspace"
-    Label o{--|o Workspace : "Workspace"
 ```

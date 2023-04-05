@@ -67,9 +67,8 @@ model Profile {
     user   User   @relation(fields: [userId], references: [id])
     userId String
 
-    tags        PermissionTag[]
-    workspaces  Workspace       @relation(fields: [workspaceId], references: [id])
-    workspaceId String
+    tags       PermissionTag[]
+    workspaces Workspace[]
 }
 
 model PermissionTag {
@@ -90,22 +89,4 @@ model Workspace {
 
     tags     PermissionTag[]
     profiles Profile[]
-    items    ToDoneItem[]
-    labels   Label[]
-}
-
-model ToDoneItem {
-    id          String    @id @default(cuid())
-    workspace   Workspace @relation(fields: [workspaceId], references: [id])
-    workspaceId String
-
-    labels Label[]
-}
-
-model Label {
-    id String @id @default(cuid())
-
-    items       ToDoneItem[]
-    Workspace   Workspace?   @relation(fields: [workspaceId], references: [id])
-    workspaceId String?
 }
