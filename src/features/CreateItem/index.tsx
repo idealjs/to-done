@@ -1,16 +1,12 @@
-import { nanoid } from "nanoid";
-
-import { ITEM_TYPE, listData } from "../listData";
+import { useCreateTodo } from "../listData";
 
 const CreateItem = () => {
+  const createTodo = useCreateTodo();
   return (
     <div
       className="btn btn-info shadow-md z-10 sticky top-16"
       onClick={() => {
-        listData.items.unshift({
-          id: nanoid(),
-          itemType: ITEM_TYPE.TODO,
-        });
+        createTodo();
       }}
     >
       Create Item

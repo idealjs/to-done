@@ -1,5 +1,5 @@
 {
-  "extends": "next/core-web-vitals",
+  "extends": ["next/core-web-vitals", "plugin:valtio/recommended"],
   "plugins": ["simple-import-sort"],
   "rules": {
     "simple-import-sort/imports": "warn",
@@ -9,6 +9,8 @@
       {
         "enableDangerousAutofixThisMayCauseInfiniteLoops": true
       }
-    ]
+    ],
+    "valtio/state-snapshot-rule": "warn",
+    "valtio/avoid-this-in-proxy": "warn"
   }
 }

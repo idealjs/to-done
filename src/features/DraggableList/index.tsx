@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useCallback } from "react";
 
 import List from "../../components/List";
-import { IItem, listData } from "../listData";
+import { IItem, useMoveItem } from "../listData";
 import DraggableItem from "./DraggableItem";
 
 interface IProps {
@@ -28,20 +28,20 @@ const restrictToVerticalAxis: Modifier = ({ transform }) => {
 const DraggableList = (props: IProps) => {
   const { id, items, listProps } = props;
 
-  const onDragEnd = useCallback((event: DragEndEvent) => {
-    const { active, over } = event;
-    const activeId = active.id;
-    const overId = over?.id;
-    if (overId == null) {
-      return;
-    }
+  const moveItem = useMoveItem();
 
-    const activeIndex = listData.items.findIndex((v) => v.id === activeId);
-    const overIndex = listData.items.findIndex((v) => v.id === overId);
-
-    const activeEl = listData.items.splice(activeIndex, 1);
-    listData.items.splice(overIndex, 0, ...activeEl);
-  }, []);
+  const onDragEnd = useCallback(
+    (event: DragEndEvent) => {
+      const { active, over } = event;
+      const activeId = active.id;
+      const overId = over?.id;
+      if (overId == null) {
+        return;
+      }
+      moveItem(activeId, overId);
+    },
+    [moveItem]
+  );
 
   return (
     <DndContext

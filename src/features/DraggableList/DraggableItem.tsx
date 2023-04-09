@@ -8,7 +8,7 @@ import {
 } from "react";
 
 import ListItem from "../../components/List/ListItem";
-import { IItem, ITEM_TYPE, listData } from "../listData";
+import { IItem, ITEM_TYPE, useToggleItem } from "../listData";
 
 interface IProps {
   item: IItem;
@@ -20,6 +20,7 @@ const DraggableItem = (props: PropsWithChildren<IProps>) => {
   const { setNodeRef, listeners, transform, transition } = useSortable({
     id: item.id,
   });
+  const toggleItem = useToggleItem();
 
   const style = {
     transform: CSS.Transform.toString({
@@ -31,22 +32,11 @@ const DraggableItem = (props: PropsWithChildren<IProps>) => {
     transition,
   };
 
-  const onChange: ChangeEventHandler<HTMLInputElement> = useCallback(
-    (event) => {
-      const target = listData.items.find((v) => v.id === item.id);
-      if (target != null) {
-        if (event.target.checked) {
-          target.itemType = ITEM_TYPE.DONE;
-        } else {
-          target.itemType = ITEM_TYPE.TODO;
-        }
-        const itemIndex = listData.items.findIndex((v) => v.id === item.id);
-        const items = listData.items.splice(itemIndex, 1);
-        listData.items.unshift(...items);
-      }
-    },
-    [item.id]
-  );
+  const onChange: ChangeEventHandler<HTMLInputElement> = useCallback(() => {
+    toggleItem(item.id, {
+      moveToTop: true,
+    });
+  }, [item.id, toggleItem]);
 
   return (
     <ListItem
