@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import type { GetServerSideProps } from "next/types";
 import { getServerSession } from "next-auth/next";
 import { signOut } from "next-auth/react";
@@ -5,6 +6,7 @@ import { signOut } from "next-auth/react";
 import Logo from "../../components/Logo";
 import CreateItem from "../../features/CreateItem";
 import DoneList from "../../features/DoneList";
+import { useSyncListData } from "../../features/listData";
 import Navbar from "../../features/Navbar";
 import TodoList from "../../features/TodoList";
 import prisma from "../../lib/prisma";
@@ -13,6 +15,10 @@ import { authOptions } from "../api/auth/[...nextauth]";
 interface IProps {}
 
 const Workspace = (props: IProps) => {
+  const router = useRouter();
+
+  useSyncListData(router.query.id as string);
+
   return (
     <div className="drawer">
       <input id="workspace-drawer" type="checkbox" className="drawer-toggle" />
