@@ -1,11 +1,9 @@
+import { openDB } from "idb";
+import debounce from "lodash.debounce";
 import { nanoid } from "nanoid";
-import PouchDB from "pouchdb";
-import upsert from "pouchdb-upsert";
-import { useCallback, useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { proxy, subscribe, useSnapshot } from "valtio";
 import { derive } from "valtio/utils";
-
-PouchDB.plugin(upsert);
 
 export enum ITEM_TYPE {
   TODO = "TODO",
@@ -101,41 +99,65 @@ export const useCreateTodo = () => {
   return useSnapshot(state).createTodo;
 };
 
+const syncData = debounce(async (workspaceId: string) => {
+  const db = await openDB<{
+    sequence: {
+      key: string;
+      value: string[];
+    };
+    items: {
+      key: string;
+      value: { [key: string]: IItem | undefined };
+    };
+  }>(workspaceId, undefined, {
+    upgrade(database, oldVersion, newVersion, transaction, event) {
+      database.createObjectStore("sequence");
+      database.createObjectStore("items");
+    },
+  });
+
+  try {
+    const sequence = await db.get("sequence", "sequence");
+    state.sequence = sequence ?? [];
+  } catch (error) {
+    console.error(error);
+  }
+
+  try {
+    const items = await db.get("items", "items");
+    state.items = items ?? {};
+  } catch (error) {
+    console.error(error);
+  }
+
+  const unsubscribe = subscribe(state, async (ops) => {
+    console.log("test test");
+    await db.put("sequence", [...state.sequence], "sequence");
+    await db.put(
+      "items",
+      Object.entries(state.items).reduce(
+        (p, c) => ({ ...p, [c[0]]: { ...c[1] } }),
+        {}
+      ),
+      "items"
+    );
+  });
+
+  return unsubscribe;
+});
+
 export const useSyncListData = (
   workspaceId: string,
   options?: { pushToRemote?: boolean }
 ) => {
-  const ref = useRef(new PouchDB(workspaceId));
-
-  const syncData = useCallback(async () => {
-    const sequenceDoc = await ref.current.get<{ sequence?: string[] }>(
-      "sequence"
-    );
-    state.sequence = sequenceDoc.sequence ?? [];
-
-    const itemsDoc = await ref.current.get<{
-      items?: { [key: string]: IItem | undefined };
-    }>("items");
-    state.items = itemsDoc.items ?? {};
-  }, []);
-
   useEffect(() => {
-    syncData();
-  }, [syncData]);
-
-  useEffect(() => {
-    const unsubscribe = subscribe(state, async (ops) => {
-      await ref.current.upsert("sequence", (doc) => ({
-        ...doc,
-        sequence: state.sequence,
-      }));
-      await ref.current.upsert("items", (doc) => ({
-        ...doc,
-        items: state.items,
-      }));
+    let unsubscribe: (() => void) | undefined;
+    syncData(workspaceId)?.then((res) => {
+      unsubscribe = res;
     });
+
     return () => {
-      unsubscribe();
+      unsubscribe && unsubscribe();
     };
-  }, []);
+  }, [workspaceId]);
 };

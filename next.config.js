@@ -6,6 +6,9 @@ const withPWA = require("next-pwa")({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  experimental: {
+    appDir: true,
+  },
   webpack: (config) => {
     config.snapshot = {
       ...(config.snapshot ?? {}),

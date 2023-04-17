@@ -1,3 +1,5 @@
+"use client";
+
 import { DndContext, DragEndEvent, Modifier } from "@dnd-kit/core";
 import {
   SortableContext,

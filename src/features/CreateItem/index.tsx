@@ -1,3 +1,5 @@
+"use client";
+
 import { useCreateTodo } from "../listData";
 
 const CreateItem = () => {
