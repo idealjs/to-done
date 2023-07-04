@@ -1,8 +1,8 @@
+"use client";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 
 import HeroInput from "../../components/HeroInput";
-import preAuth from "./preAuth";
 
 const SignIn = () => {
   const router = useRouter();
@@ -25,15 +25,11 @@ const SignIn = () => {
         check: "Next",
       }}
       check={async (input) => {
-        const res = await preAuth(input);
-        if (res.allow) {
-          await signIn("email", {
-            email: input,
-            redirect: false,
-          });
-          return true;
-        }
-        return false;
+        await signIn("email", {
+          email: input,
+          redirect: false,
+        });
+        return true;
       }}
       next={async (input, nextInput) => {
         const params = new URLSearchParams({

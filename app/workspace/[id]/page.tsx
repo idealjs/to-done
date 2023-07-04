@@ -1,11 +1,12 @@
 import { Fragment } from "react";
 
-import Logo from "../../../src/components/Logo";
-import CreateItem from "../../../src/features/CreateItem";
-import DoneList from "../../../src/features/DoneList";
-import Navbar from "../../../src/features/Navbar";
-import SyncData from "../../../src/features/SyncData";
-import TodoList from "../../../src/features/TodoList";
+import Logo from "../../components/Logo";
+import CreateItem from "../../features/CreateItem";
+import DoneList from "../../features/DoneList";
+import Navbar from "../../features/Navbar";
+import SignOut from "../../features/SignOut";
+import SyncData from "../../features/SyncData";
+import TodoList from "../../features/TodoList";
 
 interface IProps {
   params: {
@@ -51,15 +52,7 @@ const Workspace = async (props: IProps) => {
             </div>
             <div className="flex-1 flex flex-col justify-between">
               <ul></ul>
-              <ul className="menu menu-compact lg:menu-normal rounded-box p-4">
-                <li
-                // onClick={async () => {
-                //   await signOut({ callbackUrl: "/" });
-                // }}
-                >
-                  <a>sign out</a>
-                </li>
-              </ul>
+              <SignOut />
             </div>
           </aside>
         </div>

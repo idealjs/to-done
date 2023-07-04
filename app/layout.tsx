@@ -1,8 +1,8 @@
-import "../src/styles/globals.css";
+import './globals.css'
 
 import { PropsWithChildren } from "react";
 
-import AuthContext from "../src/components/AuthContext";
+import AuthContext from "./components/AuthContext";
 
 const layout = (props: PropsWithChildren) => {
   const { children } = props;

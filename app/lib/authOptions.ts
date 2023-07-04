@@ -1,10 +1,12 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import NextAuth, { NextAuthOptions } from "next-auth";
+import { NextAuthOptions } from "next-auth";
 import { Provider } from "next-auth/providers";
 import EmailProvider from "next-auth/providers/email";
 import GithubProvider from "next-auth/providers/github";
 
-import prisma from "../../../lib/prisma";
+import prisma from "./prisma";
+
+const adapter = PrismaAdapter(prisma);
 
 const providers: Provider[] = [
   EmailProvider({
@@ -31,9 +33,7 @@ const providers: Provider[] = [
   }),
 ];
 
-const adapter = PrismaAdapter(prisma);
-
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
   adapter:
     process.env.NEXT_PUBLIC_NODE_ENV === "prod"
       ? adapter
@@ -78,4 +78,4 @@ export const authOptions: NextAuthOptions = {
   },
 };
 
-export default NextAuth(authOptions);
+export default authOptions;

@@ -1,9 +1,9 @@
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth/next";
 
-import SignInButton from "../src/features/SignInButton";
-import prisma from "../src/lib/prisma";
-import { authOptions } from "../src/pages/api/auth/[...nextauth]";
+import SignInButton from "./features/SignInButton";
+import authOptions from "./lib/authOptions";
+import prisma from "./lib/prisma";
 
 interface IProps {}
 

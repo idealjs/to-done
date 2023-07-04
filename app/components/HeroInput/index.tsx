@@ -35,7 +35,11 @@ const HeroInput = (props: IProps) => {
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content w-full flex-col lg:flex-row-reverse">
         <div className="text-center lg:text-left">
-          {title != null && <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold">{title}</h1>}
+          {title != null && (
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold">
+              {title}
+            </h1>
+          )}
           <p className="hidden sm:block py-6">{content}</p>
         </div>
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
