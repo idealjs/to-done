@@ -11,7 +11,11 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
 
-  adminer:
-    image: adminer
+  maildev:
+    image: maildev/maildev
     ports:
-      - 8080:8080
+      - '8080:1080'
+      - '8025:1025'
+    environment:
+      MAILDEV_INCOMING_USER: ${EMAIL_SERVER_USER}
+      MAILDEV_INCOMING_PASS: ${EMAIL_SERVER_PASSWORD}

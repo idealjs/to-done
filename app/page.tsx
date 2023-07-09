@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth/next";
 
-import SignInButton from "./features/SignInButton";
+import SignInButton from "../features/SignInButton";
 import authOptions from "./lib/authOptions";
 import prisma from "./lib/prisma";
 

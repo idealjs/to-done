@@ -27,9 +27,9 @@ const SignIn = () => {
       check={async (input) => {
         await signIn("email", {
           email: input,
-          redirect: false,
+          callbackUrl: "/",
         });
-        return true;
+        return false;
       }}
       next={async (input, nextInput) => {
         const params = new URLSearchParams({

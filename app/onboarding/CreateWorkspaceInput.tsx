@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
-import HeroInput from "../components/HeroInput";
+import HeroInput from "../../components/HeroInput";
 import createWorkspace from "../hooks/api/createWorkspace";
 
 const CreateWorkspaceInput = () => {

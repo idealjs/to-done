@@ -1,12 +1,12 @@
 import { Fragment } from "react";
 
-import Logo from "../../components/Logo";
-import CreateItem from "../../features/CreateItem";
-import DoneList from "../../features/DoneList";
-import Navbar from "../../features/Navbar";
-import SignOut from "../../features/SignOut";
-import SyncData from "../../features/SyncData";
-import TodoList from "../../features/TodoList";
+import Logo from "../../../components/Logo";
+import CreateItem from "../../../features/CreateItem";
+import DoneList from "../../../features/DoneList";
+import Navbar from "../../../features/Navbar";
+import SignOut from "../../../features/SignOut";
+import SyncData from "../../../features/SyncData";
+import TodoList from "../../../features/TodoList";
 
 interface IProps {
   params: {

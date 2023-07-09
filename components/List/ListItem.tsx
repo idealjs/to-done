@@ -1,8 +1,6 @@
 import clsx from "clsx";
 import { CSSProperties, forwardRef, PropsWithChildren } from "react";
 
-import { IClassNameProps } from "../../type";
-
 interface IProps extends IClassNameProps {
   style?: CSSProperties;
 }

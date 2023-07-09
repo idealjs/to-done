@@ -1,8 +1,6 @@
 import clsx from "clsx";
 import { PropsWithChildren } from "react";
 
-import { IClassNameProps } from "../../type";
-
 interface IProps extends IClassNameProps {
   searchId: string;
 }

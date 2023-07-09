@@ -19,12 +19,6 @@ const providers: Provider[] = [
       },
     },
     from: process.env.EMAIL_FROM,
-    sendVerificationRequest:
-      process.env.NEXT_PUBLIC_NODE_ENV === "prod"
-        ? undefined
-        : (params) => {
-            console.debug("[debug]:mock sendVerificationRequest", params);
-          },
   }),
   GithubProvider({
     clientId: process.env.CLIENT_ID,
@@ -34,35 +28,12 @@ const providers: Provider[] = [
 ];
 
 const authOptions: NextAuthOptions = {
-  adapter:
-    process.env.NEXT_PUBLIC_NODE_ENV === "prod"
-      ? adapter
-      : {
-          ...adapter,
-          useVerificationToken(params) {
-            return {
-              ...params,
-              expires: new Date(new Date().getTime() + 3600 * 1000),
-            };
-          },
-        },
+  adapter,
   session: {
     strategy: "jwt",
   },
   callbacks: {
     session: async ({ session, token }) => {
-      if (process.env.NEXT_PUBLIC_NODE_ENV !== "prod") {
-        const user = await prisma.user.findUnique({
-          where: {
-            id: token.sub,
-          },
-        });
-
-        if (user == null) {
-          throw new Error("User not found");
-        }
-      }
-
       return {
         ...session,
         user: {
